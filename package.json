@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "obsidian-64",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "Converts selected text to/from Base64 encoding for basic obfuscation purposes.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
