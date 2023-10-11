@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "obsidian-64",
+	"name": "Obsidian 64",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Converts entire files to/from Base64 encoding for basic obfuscation purposes.",
+	"author": "Dylan",
+	"authorUrl": "https://www.dylan-park.com",
 	"isDesktopOnly": false
 }
