@@ -1,5 +1,4 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import { Buffer } from "buffer";
 
 // Remember to rename these classes and interfaces!
 
@@ -11,10 +10,6 @@ const DEFAULT_SETTINGS: Obsidian64Settings = {
 	mySetting: 'default'
 }
 
-const decode = (str: string):string => Buffer.from(str, 'base64').toString('binary');
-
-const encode = (str: string):string => Buffer.from(str, 'binary').toString('base64');
-
 export default class Obsidan64 extends Plugin {
 	settings: Obsidian64Settings;
 
@@ -25,9 +20,10 @@ export default class Obsidan64 extends Plugin {
 		this.addCommand({
 			id: 'encode-to-base64',
 			name: 'Encode to Base64',
+			icon: 'lock',
 			editorCallback: (editor: Editor) => {
 				const selection = editor.getSelection();
-				editor.replaceSelection(encode(selection));
+				editor.replaceSelection(btoa(selection));
 			}
 		});
 		
@@ -35,9 +31,10 @@ export default class Obsidan64 extends Plugin {
 		this.addCommand({
 			id: 'decode-from-base64',
 			name: 'Decode From Base64',
+			icon: 'unlock',
 			editorCallback: (editor: Editor) => {
 				const selection = editor.getSelection();
-				editor.replaceSelection(decode(selection));
+				editor.replaceSelection(atob(selection));
 			}
 		});
 

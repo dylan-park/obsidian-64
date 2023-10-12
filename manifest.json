@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "Converts selected text to/from Base64 encoding for basic obfuscation purposes.",
-	"author": "Dylan",
+	"author": "Dylan Park",
 	"authorUrl": "https://www.dylan-park.com",
 	"isDesktopOnly": false
 }
