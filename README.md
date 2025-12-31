@@ -12,6 +12,13 @@ It can also just be used for partial text encoding/decoding, if that functionali
 
 **Note:** Any file encoded with Base64 will (temporarily) lose all markdown and thus obsidian based functionality. This means links and backlinks will break, files linked after it will not appear correctly in the graph view, and obviously all other plugin/markdown functionalities will temporarily stop working. Once properly decoded, all functionality involving plaintext files should return exactly as they were before.
 
+## Features
+
+### Multiple Encoding Iterations
+The plugin supports encoding text multiple times for increased obfuscation. You can configure the number of iterations (1-15) in the plugin settings. When you encode text, it will be Base64 encoded the specified number of times. The iteration count is automatically embedded in the encoded output, so decoding will automatically apply the correct number of decoding passes.
+
+**Backwards Compatibility:** Text encoded with older versions of the plugin (single iteration, no embedded marker) will still decode correctly.
+
 ## Usage
 
 The plugin's functions can be accessed by using the 2 commands in the command palette:
@@ -19,3 +26,8 @@ The plugin's functions can be accessed by using the 2 commands in the command pa
 - Obsidian 64: Decode from Base64
 
 These can also be added to the mobile toolbar for easier access on some devices.
+
+## Settings
+
+Access the plugin settings to configure:
+- **Iterations**: Set how many times text should be encoded (1-15). Higher values provide more obfuscation but will result in longer encoded strings.
