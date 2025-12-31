@@ -196,6 +196,9 @@ export default class Obsidan64 extends Plugin {
 
 	// Decode text, auto-detecting iteration count
 	decodeText(text: string): string {
+		// Remove any whitespace characters that might have been added
+		const cleanText = text.replace(/\s/g, '');
+
 		// Decode once to check for iteration marker
 		let decoded = atob(text);
 
@@ -218,15 +221,47 @@ export default class Obsidan64 extends Plugin {
 	// Encode entire file
 	async encodeFile(file: TFile): Promise<void> {
 		const content = await this.app.vault.read(file);
-		const encoded = this.encodeText(content);
-		await this.app.vault.modify(file, encoded);
+		const { frontmatter, body } = this.splitFrontmatter(content);
+		const encoded = this.encodeText(body);
+		const finalContent = frontmatter ? `${frontmatter}\n${encoded}` : encoded;
+		await this.app.vault.modify(file, finalContent);
 	}
 
 	// Decode entire file
 	async decodeFile(file: TFile): Promise<void> {
 		const content = await this.app.vault.read(file);
-		const decoded = this.decodeText(content);
-		await this.app.vault.modify(file, decoded);
+		const { frontmatter, body } = this.splitFrontmatter(content);
+		const trimmedBody = body.trim();
+		const decoded = this.decodeText(trimmedBody);
+		const finalContent = frontmatter ? `${frontmatter}\n${decoded}` : decoded;
+		await this.app.vault.modify(file, finalContent);
+	}
+
+	// Split frontmatter from body content
+	splitFrontmatter(content: string): { frontmatter: string | null, body: string } {
+		// Check if content starts with frontmatter (---)
+		if (content.startsWith('---\n') || content.startsWith('---\r\n')) {
+			// Find the closing ---
+			const lines = content.split('\n');
+			let endIndex = -1;
+
+			for (let i = 1; i < lines.length; i++) {
+				if (lines[i].trim() === '---') {
+					endIndex = i;
+					break;
+				}
+			}
+
+			if (endIndex !== -1) {
+				// Found valid frontmatter
+				const frontmatter = lines.slice(0, endIndex + 1).join('\n');
+				const body = lines.slice(endIndex + 1).join('\n').trimStart();
+				return { frontmatter, body };
+			}
+		}
+
+		// No frontmatter found
+		return { frontmatter: null, body: content };
 	}
 
 	// Show confirmation modal

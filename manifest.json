@@ -1,9 +1,9 @@
 {
 	"id": "obsidian-64",
 	"name": "Obsidian 64",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"minAppVersion": "0.15.0",
-	"description": "Converts selected text to/from Base64 encoding for basic obfuscation purposes.",
+	"description": "Converts text to/from Base64 encoding for basic obfuscation purposes.",
 	"author": "Dylan Park",
 	"authorUrl": "https://www.dylan-park.com",
 	"isDesktopOnly": false

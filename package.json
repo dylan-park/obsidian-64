@@ -1,7 +1,7 @@
 {
 	"name": "obsidian-64",
-	"version": "1.2.0",
-	"description": "Converts selected text to/from Base64 encoding for basic obfuscation purposes.",
+	"version": "1.2.1",
+	"description": "Converts text to/from Base64 encoding for basic obfuscation purposes.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
