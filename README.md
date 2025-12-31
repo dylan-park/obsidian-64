@@ -17,17 +17,34 @@ It can also just be used for partial text encoding/decoding, if that functionali
 ### Multiple Encoding Iterations
 The plugin supports encoding text multiple times for increased obfuscation. You can configure the number of iterations (1-15) in the plugin settings. When you encode text, it will be Base64 encoded the specified number of times. The iteration count is automatically embedded in the encoded output, so decoding will automatically apply the correct number of decoding passes.
 
-**Backwards Compatibility:** Text encoded with older versions of the plugin (single iteration, no embedded marker) will still decode correctly.
+**Backwards Compatibility:** Text encoded with older versions of the plugin (single iteration, no embedded marker), or text otherwise encoded with normal Base64, will still decode correctly.
 
 ## Usage
 
-The plugin's functions can be accessed by using the 2 commands in the command palette:
-- Obsidian 64: Encode to Base64
-- Obsidian 64: Decode from Base64
+### Text Selection Commands
+The plugin's text selection functions can be accessed by using these commands in the command palette:
+- Obsidian 64: Encode Selected Text to Base64
+- Obsidian 64: Decode Selected Text from Base64
+
+These can be added to the mobile toolbar for easier access on some devices.
+
+### Entire File Operations
+You can encode or decode entire files without selecting text:
+
+**Command Palette:**
+- Obsidian 64: Encode Current File to Base64
+- Obsidian 64: Decode Current File from Base64
+
+**File Context Menu:**
+Right-click on any markdown (.md) file in the file explorer to see:
+- Encode File to Base64
+- Decode File from Base64
+
+All file operations will ask for confirmation before processing and only work with markdown files.
 
 These can also be added to the mobile toolbar for easier access on some devices.
 
-## Settings
+### Settings
 
 Access the plugin settings to configure:
 - **Iterations**: Set how many times text should be encoded (1-15). Higher values provide more obfuscation but will result in longer encoded strings.
