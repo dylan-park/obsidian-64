@@ -29,16 +29,21 @@ export default class Obsidan64 extends Plugin {
 
 					let encoded = selection;
 
-					// Encode (iterations - 1) times
-					for (let i = 0; i < this.settings.iterations - 1; i++) {
+					// If iterations is 1, just do simple Base64 encoding
+					if (this.settings.iterations === 1) {
+						encoded = btoa(encoded);
+					} else {
+						// Encode (iterations - 1) times
+						for (let i = 0; i < this.settings.iterations - 1; i++) {
+							encoded = btoa(encoded);
+						}
+
+						// Add the marker at the end before the final encoding
+						encoded = `${encoded}::${this.settings.iterations}`;
+
+						// Encode one final time
 						encoded = btoa(encoded);
 					}
-
-					// Add the marker before the final encoding
-					encoded = `[OBS64:${this.settings.iterations}]${encoded}`;
-
-					// Encode one final time
-					encoded = btoa(encoded);
 
 					editor.replaceSelection(encoded);
 				} catch (error) {
@@ -63,12 +68,12 @@ export default class Obsidan64 extends Plugin {
 					// Decode once to check for iteration marker
 					let decoded = atob(selection);
 
-					// Check if the decoded text contains our marker
-					const markerMatch = decoded.match(/^\[OBS64:(\d+)\]/);
+					// Check if the decoded text contains our marker at the end
+					const markerMatch = decoded.match(/::(\d+)$/);
 					if (markerMatch) {
 						const iterations = parseInt(markerMatch[1], 10);
 						// Remove the marker
-						decoded = decoded.replace(/^\[OBS64:\d+\]/, '');
+						decoded = decoded.replace(/::(\d+)$/, '');
 						// Decode the remaining (iterations - 1) times
 						for (let i = 0; i < iterations - 1; i++) {
 							decoded = atob(decoded);
